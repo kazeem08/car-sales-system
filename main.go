@@ -7,22 +7,13 @@ import (
 	"net/http"
 )
 
-type User struct {
+type Cars struct {
 	Name string
-	Email string
-	Sex string
+	Brand string
+	Door int
+	Condition string
 }
 
-var users = []User {
-	{   Name: "kazeem",
-		Email: "test@gmail.com",
-		Sex: "Male",
-	},
-	{   Name: "Lanre",
-		Email: "test2@gmail.com",
-		Sex: "Female",
-	},
-}
 
 func main() {
 	r := httprouter.New()
