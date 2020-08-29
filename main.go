@@ -7,12 +7,7 @@ import (
 	"net/http"
 )
 
-type Cars struct {
-	Name string
-	Brand string
-	Door int
-	Condition string
-}
+
 
 
 func main() {
@@ -22,16 +17,3 @@ func main() {
 	http.ListenAndServe("localhost:8080", r)
 }
 
-func GetUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
-	var result []User
-	for _, user := range users {
-		if user.Name == "kazeem" {
-			result = append(result, user)
-		}
-	}
-
-	uj, _ := json.Marshal(result)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "%s\n", uj)
-}
