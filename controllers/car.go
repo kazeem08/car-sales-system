@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"../models"
+	//"../models"
 	"encoding/json"
 	"fmt"
 	"github.com/julienschmidt/httprouter"
@@ -9,6 +9,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
+	"v2/mongo/models"
 )
 
 type CarController struct {
@@ -20,6 +21,10 @@ var dbName = "automobiles"
 
 func NewCarController(s *mgo.Session) *CarController {
 	return &CarController{s}
+}
+
+func (cc CarController) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
+	fmt.Fprintf(w, "Welcome to Future Automobiles")
 }
 
 func (cc CarController) CreateCar(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
@@ -43,7 +48,8 @@ func (cc CarController) CreateCar(w http.ResponseWriter, r *http.Request, _ http
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Println(c)
+
+	fmt.Fprintf(w, "%s\n", c)
 
 
 }
