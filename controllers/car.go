@@ -27,12 +27,28 @@ func (cc CarController) Index(w http.ResponseWriter, r *http.Request, _ httprout
 	fmt.Fprintf(w, "Welcome to Future Automobiles")
 }
 
+func (cc CarController) GetCars(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
+	var cars []models.Car
+
+	if err := cc.session.DB(dbName).C(collection).Find(nil).All(&cars); err != nil {
+		log.Fatal(err)
+	}
+
+	uj, _ := json.Marshal(cars)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "%s\n", uj)
+}
+
+
 func (cc CarController) CreateCar(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
 	car := models.Car{}
 
 	// decode json
 	json.NewDecoder(r.Body).Decode(&car)
 
+	fmt.Println(car.Brand)
 	// generate an ID
 	car.Id = bson.NewObjectId()
 

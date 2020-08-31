@@ -13,6 +13,7 @@ func main() {
 	r := httprouter.New()
 	carController := controllers.NewCarController(getSession())
 	r.GET("/", carController.Index)
+	r.GET("/cars", carController.GetCars)
 	r.POST("/cars", carController.CreateCar)
 
 	http.ListenAndServe("localhost:8080", r)
